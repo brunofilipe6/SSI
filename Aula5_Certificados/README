@@ -1,0 +1,38 @@
+Criar os próprios certificados
+Passos:
+
+I) Gerar Certificado Auto-Assinado (Exemplo: CA.cer do professor) serve para gerar certificados p12 e para os validar depois
+II) Gerar Certificado cliente Com chaves RSA para assinar e verificar
+III) Gerar Certificado Servidor com chaves RSA para assinar e verificar
+
+Para realizar o passo I é necessário o seguinte:
+Gerar uma chave RSA de 2048 bits de comprimento para utilizar na criação do certificado e colocar password no ficheiro
+Criar certificado em seguida onde é encessário fornecer uma identidade para o mesmo, neste caso é usado a opção x509(usado para certificados auto-assinados) e a duração em dias neste caso 128 e a chave gerada anteriormente
+Para realizar o passo II é necessário o seguinte:
+Gerar chaves RSA que serão usadas na assinatura, chaves de 2048 bits também (protegida tambem com a opção des3 (password))
+É necessário solicitar certificado para o novo certificado que será criado para o cliente
+Ém seguida é necessário processar o certificado anterior com o certificado principal (Certificate Authority), neste caso com o certificado criado no passo I
+Com este passo obtemos o certificado assinado pelo certificado do passo I
+Optei por colocar em todos a duração de 128 dias
+Optei por colocar número de serie 1, enquanto no passo I é gerado um número de serie aleatorio
+Por último transformar o certificado anterior no formato pkcs12 para depois aplicar no programa
+(obtemos nesta fase o cliente.p12)
+Para realizar o passo III é necessário o seguinte:
+análogo ao cliente mas com os nomes e dados do servidor
+
+Notas:
+Os certificados serão criados de forma a serem utilizados nas mesmas condições dos que foram fornecidos, isto é, utilizaremos passwords nos mesmos "locais", password usada 1234, poderia ser outra qualquer.
+
+Consultar geraCertificados.sh que se encontra na pasta test
+O resultado do geradorCertificados encontra-se na pasta test/CertificadosBruno
+
+Depois de criados os meus certificados fui compara-los com os fornecidos pelo professor
+Transformei o Ca.cer num .pem
+ openssl x509 -inform der -in CA.cer -out certificate.pem
+E em seguida analisei o seu conteúdo com o comando: openssl x509 -in certificate.pem -text (tanto do CA do professor como o meu)
+Depois analisar os p12
+com o comando openssl pkcs12 -in path.p12 -out newfile.pem transformei-os em pem e analisei com o mesmo comando anterior
+E por último testar no programa
+
+Para correr o programa é iniciar o servidor e depois o cliente tal como nas primeiras versões
+Programa gerado no NetBeans

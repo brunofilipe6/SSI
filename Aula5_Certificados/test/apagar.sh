@@ -1,0 +1,1 @@
+rm c* S* s* CA.cer Cliente.p12
