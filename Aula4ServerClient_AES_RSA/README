@@ -1,0 +1,32 @@
+GERACHAVE
+Responsavel por gerar chaves RSA, de 1024 bits.
+Chave publica e privada são guardadas em ficheiros separados. 
+Para serem utilizados depois na assinatura das mensagens.
+
+DIFFIEHELLMAN
+Responsavel por gerar um p e g de 1024 bits grandes para serem utilizados 
+na contrução de chaves DH no cliente e servidor
+Optei por utilizar p e q usados no exercício da semana 3, contudo era fácil utilizar a função gerador e utilizar um p e g aleatorio
+
+SERVIDOR
+Recebe/Aceita novos clientes
+Gera as chaves RSA necessárias para assinatura, recorrendo ao metodo que se 
+encontra na classe GERACHAVE e guarda em 2 ficheiros também
+
+CLIENTE e TSERVIDOR
+A partir do pe g da classe DIFFIEHELLMAN gera um par de chaves DH
+Abre os ficheiros onde se encontram as chaves para assinar/verificar
+Nomeadamente a chave publica do servidor para verificar e chave privada do cliente para assinar
+Recebe do servidor a chave publica DH
+Envia para o servidor a sua chave publica DH
+e assina o que recebeu e a que enviou com a sua chave privada RSA
+Aguarda resposta do servidor, isto é, espera receber a assinatura do lado do servidor
+irá verificar se concide
+em caso afirmativo continua, caso contrário o cliente termina
+Após trocadas as chaves é criada uma nova chave para cifrar, a utilizar na  cifra AES
+essa chave resulta do doPhase que faz um acordo entre servidor e cliente e retorna uma chave
+acordada pelos dois
+É necessário utilizar uma chave mais "pequena", de 128 bits para cifrar e posteriormente decifrar
+Depois o que é feito é cifrar a mensagem e assinar a mensagem cifrada com a chave privada do cliente, RSA para depois o servidor verificar com a chave publica se esta não foi modificada, integra e garante que o cliente enviou mesmo aquela mensagem.
+O servidor faz praticamente o que o cliente faz, de forma analoga.
+
