@@ -1,0 +1,6 @@
+Versão com MasterKey para melhorar a segurança, isto é,
+não ser possível extrair informação da chave, uma vez que esta é utilizada
+para o mac e para chaveSecreta (usado no enc e dec)
+
+
+NOTA: Na resolução do exercicio da 3ª semana reparei que tinha um erro a trabalhar nos dados da masterkey portanto resolvi corrigi-lo e enviar como versão 3
