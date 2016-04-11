@@ -1,0 +1,31 @@
+Explicação do que está a acontecer
+Servidor e cliente inicializam x e y e calculam, respetivamente, g^x mod p e g^y mod p
+Servidor envia ao cliente g^x mod p
+Cliente recebe e envia ao servidor g^y mod p
+Ambos calculam g^xy mod em que 256 bits serão usados para a masterkey
+Utiliza-se uma função de Hash SHA-256
+E obtem-se a masterkey
+dividi-se 128 bits para a chave a utilizar na cifra
+e os outros 128 bits a chave a usar pelo MAC
+É utilizado o modo CBC com o Padding PKCS5
+
+Cliente:
+Gera-se valor para o IV, para inicializar na cifra para cifrar
+Os dados recebidos são convertidos a bytes e cifrados
+Calcula-se o mac da mensagem cifrada
+E envia-se ao servidor a mensagem cifrada + mac + iv
+
+Servidor:
+Recebe a mensagem
+Obtem IV, MAC e dadosCifrados
+Inicializa a cifra para decifrar com o IV recebdio
+Obtem os bytes dos dados originais
+Calcula o mac dos dados cifrados recebidos
+compara-se a autenticidade do mac, isto é, verifica-se
+se o mac recebido é igual ao calculado
+Se sim imprime no ecra
+Caso contrário avisa que houve erro, proque a mensagem não é autentica.
+
+DiffieHellman:
+Classe utilizada para calcular g^x mod p e para calcular (g^x)^y mod p
+E para simplificar a leitura do código
